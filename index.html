@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CHOU-LOG | Banner 1080</title>
+
   <style>
     :root{
       --w:1080px; --h:1080px;
@@ -15,19 +16,20 @@
       --card:#FFFFFF;
     }
     *{ box-sizing:border-box; }
+    html,body{ height:100%; }
 
-    /* 画面が小さくても「下が切れない」ためのラッパー */
+    /* Viewer: never cut off, always show whole banner */
     body{
       margin:0;
       min-height:100vh;
-      background:#0b0b0b;
       display:grid;
       place-items:center;
+      background:#0b0b0b;
       overflow:auto;
       font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif;
     }
 
-    /* 横・縦の両方から縮小率を計算して、必ず収める */
+    /* Fit to BOTH width and height of the browser window */
     .fit{
       transform-origin: top center;
       transform: scale(min(
@@ -51,15 +53,33 @@
       box-shadow: 0 30px 110px rgba(0,0,0,.55);
     }
 
-    /* “枠にはまらない”演出：自由形のリボン＆ライン */
+    /* texture / grid */
+    .lines{
+      position:absolute; inset:0;
+      background:
+        linear-gradient(90deg, rgba(13,27,18,.08) 1px, transparent 1px) 0 0 / 36px 36px,
+        linear-gradient(0deg, rgba(13,27,18,.08) 1px, transparent 1px) 0 0 / 36px 36px;
+      opacity:.12;
+      mix-blend-mode:multiply;
+      pointer-events:none;
+    }
+    .noise{
+      position:absolute; inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E");
+      opacity:.18;
+      pointer-events:none;
+      mix-blend-mode:multiply;
+    }
+
+    /* “枠にはまらない” accent ribbon */
     .ribbon{
       position:absolute;
-      left:-140px;
-      top:140px;
-      width:560px;
-      height:92px;
+      left:-160px;
+      top:150px;
+      width:620px;
+      height:96px;
       transform: rotate(-16deg);
-      background: linear-gradient(135deg, rgba(255,107,107,.90), rgba(255,107,107,.55));
+      background: linear-gradient(135deg, rgba(255,107,107,.92), rgba(255,107,107,.55));
       filter: drop-shadow(0 18px 40px rgba(255,107,107,.25));
       border-radius:999px;
       opacity:.95;
@@ -72,24 +92,6 @@
       border:1px solid rgba(255,255,255,.35);
     }
 
-    .lines{
-      position:absolute; inset:0;
-      background:
-        linear-gradient(90deg, rgba(13,27,18,.08) 1px, transparent 1px) 0 0 / 36px 36px,
-        linear-gradient(0deg, rgba(13,27,18,.08) 1px, transparent 1px) 0 0 / 36px 36px;
-      opacity:.12;
-      mix-blend-mode:multiply;
-      pointer-events:none;
-    }
-
-    .noise{
-      position:absolute; inset:0;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E");
-      opacity:.18;
-      pointer-events:none;
-      mix-blend-mode:multiply;
-    }
-
     .grid{
       position:absolute;
       inset:0;
@@ -99,7 +101,7 @@
       gap:44px;
     }
 
-    /* top */
+    /* top row */
     .top{
       display:flex;
       align-items:center;
@@ -132,7 +134,6 @@
       color:var(--muted);
       font-weight:950;
       font-size:24px;
-      position:relative;
     }
     .chip b{
       background:rgba(255,107,107,.16);
@@ -158,7 +159,6 @@
       padding:4px 6px;
       position:relative;
     }
-
     .kicker{
       font-size:26px;
       font-weight:950;
@@ -166,7 +166,6 @@
       letter-spacing:.02em;
       margin-bottom:18px;
     }
-
     .headline{
       margin:0;
       font-size:88px;
@@ -180,7 +179,6 @@
       border-radius:18px;
       background:linear-gradient(180deg, rgba(43,182,115,.30), rgba(43,182,115,.10));
     }
-
     .sub{
       margin:22px 0 0 0;
       font-size:34px;
@@ -188,7 +186,6 @@
       color:var(--muted);
       font-weight:950;
     }
-
     .benefits{
       margin-top:26px;
       display:grid;
@@ -210,14 +207,14 @@
       flex:0 0 auto;
       margin-top:4px;
     }
-    .check:before{
+    .check::before{
       content:"✓";
       font-size:22px;
       color:rgba(13,27,18,.75);
       font-weight:950;
     }
 
-    /* card */
+    /* right card */
     .card{
       background:rgba(255,255,255,.92);
       border:1px solid rgba(13,27,18,.10);
@@ -229,7 +226,7 @@
       flex-direction:column;
       justify-content:space-between;
     }
-    .card:before{
+    .card::before{
       content:"";
       position:absolute;
       width:560px; height:560px;
@@ -312,7 +309,7 @@
       line-height:1.45;
     }
 
-    /* bottom */
+    /* footer */
     .footer{
       display:flex;
       align-items:flex-end;
