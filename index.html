@@ -3,33 +3,38 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CHOU-LOG | Banner 1080</title>
-
+  <title>CHOU-LOG | 1080 Banner</title>
   <style>
     :root{
       --w:1080px; --h:1080px;
-      --ink:#0D1B12;
-      --muted:#2E4A3D;
-      --paper:#F7F2E8;
-      --accent:#2BB673;
-      --accent2:#FF6B6B;
-      --card:#FFFFFF;
+
+      /* vibe: clean / premium */
+      --bg1:#f7f7ff;
+      --bg2:#f3f1ff;
+      --ink:#0f1222;
+      --muted:#5a607a;
+
+      --accent:#6c5cff;   /* purple */
+      --accent2:#35d6ff;  /* cyan */
+      --card:#ffffffcc;
+
+      --shadow: 0 30px 90px rgba(18, 16, 52, .18);
+      --radius: 56px;
     }
+
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
-
-    /* Viewer: never cut off, always show whole banner */
     body{
       margin:0;
       min-height:100vh;
       display:grid;
       place-items:center;
       background:#0b0b0b;
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif;
       overflow:auto;
-      font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif;
     }
 
-    /* Fit to BOTH width and height of the browser window */
+    /* fit in any screen without cut */
     .fit{
       transform-origin: top center;
       transform: scale(min(
@@ -42,353 +47,348 @@
     .banner{
       width:var(--w);
       height:var(--h);
-      border-radius:56px;
-      overflow:hidden;
       position:relative;
+      overflow:hidden;
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
       background:
-        radial-gradient(900px 900px at 16% 18%, rgba(43,182,115,.24), transparent 60%),
-        radial-gradient(900px 900px at 86% 14%, rgba(255,107,107,.18), transparent 62%),
-        radial-gradient(1000px 800px at 60% 100%, rgba(43,182,115,.12), transparent 60%),
-        linear-gradient(180deg, var(--paper), #fff);
-      box-shadow: 0 30px 110px rgba(0,0,0,.55);
+        radial-gradient(800px 800px at 18% 18%, rgba(108,92,255,.20), transparent 60%),
+        radial-gradient(900px 700px at 88% 18%, rgba(53,214,255,.18), transparent 60%),
+        radial-gradient(900px 900px at 60% 92%, rgba(108,92,255,.10), transparent 58%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
     }
 
-    /* texture / grid */
-    .lines{
+    /* subtle grid + noise for premium texture */
+    .gridTex{
       position:absolute; inset:0;
       background:
-        linear-gradient(90deg, rgba(13,27,18,.08) 1px, transparent 1px) 0 0 / 36px 36px,
-        linear-gradient(0deg, rgba(13,27,18,.08) 1px, transparent 1px) 0 0 / 36px 36px;
-      opacity:.12;
-      mix-blend-mode:multiply;
+        linear-gradient(90deg, rgba(15,18,34,.08) 1px, transparent 1px) 0 0 / 48px 48px,
+        linear-gradient(0deg, rgba(15,18,34,.08) 1px, transparent 1px) 0 0 / 48px 48px;
+      opacity:.06;
       pointer-events:none;
+      mix-blend-mode:multiply;
     }
     .noise{
       position:absolute; inset:0;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E");
-      opacity:.18;
+      opacity:.14;
       pointer-events:none;
-      mix-blend-mode:multiply;
+      mix-blend-mode:soft-light;
     }
 
-    /* “枠にはまらない” accent ribbon */
-    .ribbon{
-      position:absolute;
-      left:-160px;
-      top:150px;
-      width:620px;
-      height:96px;
-      transform: rotate(-16deg);
-      background: linear-gradient(135deg, rgba(255,107,107,.92), rgba(255,107,107,.55));
-      filter: drop-shadow(0 18px 40px rgba(255,107,107,.25));
-      border-radius:999px;
-      opacity:.95;
-    }
-    .ribbon::after{
-      content:"";
-      position:absolute;
-      inset:10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.35);
-    }
-
-    .grid{
-      position:absolute;
-      inset:0;
-      padding:84px;
+    .wrap{
+      position:absolute; inset:0;
+      padding:76px;
       display:grid;
-      grid-template-rows:auto 1fr auto;
-      gap:44px;
+      grid-template-columns: 1.05fr .95fr;
+      gap:48px;
+      align-items:center;
     }
 
-    /* top row */
-    .top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:20px;
-      position:relative;
-    }
+    /* brand */
     .brand{
+      position:absolute;
+      top:56px; left:76px;
       display:flex;
       align-items:center;
-      gap:14px;
-      font-weight:950;
-      color:var(--ink);
-      letter-spacing:.08em;
-      font-size:30px;
+      gap:12px;
+      letter-spacing:.10em;
+      font-weight:900;
+      color:rgba(15,18,34,.85);
       text-transform:uppercase;
+      font-size:22px;
     }
-    .dot{
-      width:18px; height:18px; border-radius:999px;
-      background:linear-gradient(135deg, var(--accent), #7be0b3);
-      box-shadow:0 14px 34px rgba(43,182,115,.35);
+    .logoMark{
+      width:14px; height:14px; border-radius:999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 10px 30px rgba(108,92,255,.35);
     }
-    .chip{
+    .tagline{
+      position:absolute;
+      top:84px; left:76px;
+      font-size:12px;
+      color:rgba(90,96,122,.70);
+      letter-spacing:.06em;
+    }
+
+    /* left copy */
+    .left{
+      padding-top:24px;
+    }
+    .pill{
       display:inline-flex;
       align-items:center;
       gap:10px;
-      padding:14px 18px;
+      padding:10px 14px;
       border-radius:999px;
-      background:rgba(13,27,18,.06);
-      color:var(--muted);
-      font-weight:950;
-      font-size:24px;
+      background: rgba(255,255,255,.65);
+      border: 1px solid rgba(15,18,34,.08);
+      color: rgba(15,18,34,.70);
+      font-weight:800;
+      font-size:14px;
+      letter-spacing:.06em;
+      backdrop-filter: blur(10px);
     }
-    .chip b{
-      background:rgba(255,107,107,.16);
-      border:1px solid rgba(255,107,107,.35);
-      color:#7a1e1e;
-      padding:6px 10px;
-      border-radius:999px;
-      font-size:22px;
-      font-weight:950;
+    .pill b{
+      font-weight:900;
+      color: rgba(15,18,34,.85);
     }
 
-    /* main */
-    .main{
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap:44px;
-      align-items:stretch;
-      position:relative;
-    }
-
-    .copy{
-      color:var(--ink);
-      padding:4px 6px;
-      position:relative;
-    }
-    .kicker{
-      font-size:26px;
-      font-weight:950;
-      color:var(--muted);
-      letter-spacing:.02em;
-      margin-bottom:18px;
-    }
     .headline{
-      margin:0;
-      font-size:88px;
-      line-height:1.05;
+      margin:22px 0 0;
+      font-size:86px;
+      line-height:1.02;
+      letter-spacing:-0.03em;
+      color:var(--ink);
       font-weight:950;
-      letter-spacing:-0.02em;
     }
     .hl{
-      display:inline-block;
-      padding:0 .14em;
-      border-radius:18px;
-      background:linear-gradient(180deg, rgba(43,182,115,.30), rgba(43,182,115,.10));
+      background: linear-gradient(90deg, rgba(108,92,255,.95), rgba(53,214,255,.95));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
     }
     .sub{
-      margin:22px 0 0 0;
-      font-size:34px;
-      line-height:1.45;
-      color:var(--muted);
-      font-weight:950;
-    }
-    .benefits{
-      margin-top:26px;
-      display:grid;
-      gap:14px;
-    }
-    .benefit{
-      display:flex;
-      gap:14px;
-      align-items:flex-start;
-      font-size:28px;
-      color:var(--ink);
-      font-weight:950;
-    }
-    .check{
-      width:34px; height:34px; border-radius:10px;
-      background:rgba(43,182,115,.18);
-      border:1px solid rgba(43,182,115,.35);
-      display:grid; place-items:center;
-      flex:0 0 auto;
-      margin-top:4px;
-    }
-    .check::before{
-      content:"✓";
+      margin:18px 0 0;
       font-size:22px;
-      color:rgba(13,27,18,.75);
-      font-weight:950;
+      line-height:1.6;
+      color: rgba(90,96,122,.92);
+      font-weight:800;
+      max-width: 420px;
     }
 
-    /* right card */
-    .card{
-      background:rgba(255,255,255,.92);
-      border:1px solid rgba(13,27,18,.10);
-      border-radius:42px;
-      padding:42px;
-      position:relative;
-      overflow:hidden;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-    }
-    .card::before{
-      content:"";
-      position:absolute;
-      width:560px; height:560px;
-      right:-280px; top:-280px;
-      background:radial-gradient(circle at 30% 30%, rgba(255,107,107,.28), transparent 56%);
-    }
-    .badge{
-      position:relative;
-      align-self:flex-start;
-      font-size:24px;
-      font-weight:950;
-      padding:12px 14px;
-      border-radius:16px;
-      background:rgba(255,107,107,.14);
-      border:1px solid rgba(255,107,107,.35);
-      color:#7a1e1e;
-    }
-    .bookTitle{
-      position:relative;
-      margin:18px 0 0 0;
-      font-size:46px;
-      line-height:1.18;
-      font-weight:950;
-      color:var(--ink);
-      letter-spacing:-0.01em;
-    }
-    .bookDesc{
-      position:relative;
-      margin:14px 0 0 0;
-      font-size:28px;
-      line-height:1.55;
-      color:var(--muted);
-      font-weight:950;
-    }
-    .mini{
-      position:relative;
-      margin-top:18px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-    }
-    .pill{
-      font-size:22px;
-      font-weight:950;
-      color:rgba(13,27,18,.75);
-      background:rgba(43,182,115,.12);
-      border:1px solid rgba(43,182,115,.28);
-      padding:10px 12px;
-      border-radius:999px;
-    }
-
-    .cta{
-      position:relative;
-      margin-top:26px;
-      padding:22px 22px;
-      border-radius:26px;
-      background:linear-gradient(135deg, var(--accent), #6ee0b2);
-      color:#07301f;
-      font-size:34px;
-      font-weight:950;
+    .ctaRow{
+      margin-top:28px;
       display:flex;
       align-items:center;
-      justify-content:space-between;
-      box-shadow:0 18px 44px rgba(43,182,115,.35);
+      gap:16px;
+    }
+    .cta{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+      padding:18px 22px;
+      border-radius:999px;
+      background: linear-gradient(135deg, var(--accent), #7a6cff);
+      color:white;
+      font-weight:950;
+      font-size:18px;
+      letter-spacing:.02em;
+      box-shadow: 0 18px 48px rgba(108,92,255,.35);
       user-select:none;
     }
     .cta small{
-      font-size:22px;
-      font-weight:950;
-      background:rgba(255,255,255,.45);
-      padding:10px 12px;
+      font-size:13px;
+      font-weight:900;
+      background: rgba(255,255,255,.18);
+      padding:6px 10px;
       border-radius:999px;
     }
-    .note{
-      position:relative;
-      margin-top:14px;
-      font-size:22px;
-      font-weight:950;
-      color:rgba(13,27,18,.55);
-      line-height:1.45;
+    .meta{
+      font-size:12px;
+      color: rgba(90,96,122,.72);
+      font-weight:800;
+      letter-spacing:.06em;
     }
 
-    /* footer */
-    .footer{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:20px;
-      color:rgba(13,27,18,.55);
-      font-weight:950;
+    /* right phone mock */
+    .right{
       position:relative;
-    }
-    .fine{ font-size:22px; line-height:1.4; }
-    .qr{
-      width:170px; height:170px;
-      border-radius:22px;
-      background:
-        linear-gradient(90deg, rgba(13,27,18,.12) 1px, transparent 1px) 0 0 / 14px 14px,
-        linear-gradient(0deg, rgba(13,27,18,.12) 1px, transparent 1px) 0 0 / 14px 14px,
-        rgba(13,27,18,.04);
-      border:1px solid rgba(13,27,18,.12);
+      height:100%;
       display:grid;
       place-items:center;
+    }
+
+    .phone{
+      width: 520px;
+      height: 820px;
+      border-radius: 72px;
+      background: linear-gradient(180deg, #0f1024, #171a3b);
+      box-shadow: 0 40px 110px rgba(18, 16, 52, .28);
+      position:relative;
+      transform: rotate(8deg);
+    }
+    .phone::before{
+      content:"";
+      position:absolute;
+      inset:10px;
+      border-radius: 62px;
+      background:
+        radial-gradient(800px 520px at 30% 16%, rgba(108,92,255,.55), transparent 55%),
+        radial-gradient(700px 520px at 82% 20%, rgba(53,214,255,.40), transparent 58%),
+        linear-gradient(180deg, #151642, #0f1024);
+    }
+    .island{
+      position:absolute;
+      top:26px; left:50%;
+      transform:translateX(-50%);
+      width: 170px;
+      height: 44px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.10);
+      backdrop-filter: blur(10px);
+    }
+
+    .screen{
+      position:absolute;
+      inset:28px;
+      border-radius: 56px;
+      padding: 34px 28px;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+    .screenTop{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      color: rgba(255,255,255,.80);
+      font-weight:900;
+      letter-spacing:.02em;
+      font-size:14px;
+      padding-top:40px;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.12);
+    }
+    .dot2{
+      width:10px;height:10px;border-radius:999px;
+      background: linear-gradient(135deg, var(--accent2), var(--accent));
+      box-shadow: 0 10px 24px rgba(53,214,255,.25);
+    }
+
+    .heroCard{
+      margin-top:12px;
+      padding:24px 22px;
+      border-radius: 26px;
+      background: linear-gradient(135deg, rgba(108,92,255,.92), rgba(108,92,255,.58));
+      box-shadow: 0 22px 64px rgba(108,92,255,.30);
+      color:white;
+    }
+    .heroCard .t1{
       font-weight:950;
-      font-size:22px;
-      color:rgba(13,27,18,.45);
+      font-size:13px;
+      letter-spacing:.12em;
+      opacity:.85;
+    }
+    .heroCard .t2{
+      margin-top:10px;
+      font-weight:950;
+      font-size:30px;
+      line-height:1.15;
+    }
+    .heroCard .btn{
+      margin-top:16px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.16);
+      border: 1px solid rgba(255,255,255,.22);
+      font-weight:950;
+      font-size:13px;
+    }
+
+    .list{
+      margin-top:12px;
+      padding:18px;
+      border-radius: 24px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.10);
+      color: rgba(255,255,255,.78);
+    }
+    .row{
+      display:flex;
+      justify-content:space-between;
+      padding:12px 6px;
+      font-weight:900;
+      font-size:13px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .row:last-child{ border-bottom:none; }
+    .val{
+      color: rgba(255,255,255,.92);
+    }
+
+    /* bottom micro */
+    .fine{
+      position:absolute;
+      left:76px;
+      bottom:56px;
+      font-size:12px;
+      color: rgba(90,96,122,.62);
+      font-weight:800;
+      letter-spacing:.06em;
     }
   </style>
 </head>
 
 <body>
   <div class="banner fit" role="img" aria-label="CHOU-LOG 1080px 正方形広告バナー">
-    <div class="ribbon" aria-hidden="true"></div>
-    <div class="lines" aria-hidden="true"></div>
+    <div class="gridTex" aria-hidden="true"></div>
     <div class="noise" aria-hidden="true"></div>
 
-    <div class="grid">
-      <div class="top">
-        <div class="brand"><span class="dot"></span>CHOU-LOG</div>
-        <div class="chip"><b>無料</b> 始め方ガイドブック配布</div>
+    <div class="brand"><span class="logoMark"></span>CHOU-LOG</div>
+    <div class="tagline">Intense Science & Wellness</div>
+
+    <div class="wrap">
+      <!-- LEFT -->
+      <div class="left">
+        <div class="pill"><b>FREE</b> 3分コンディション診断</div>
+
+        <h1 class="headline">
+          その不調、<br>
+          <span class="hl">“原因”</span>が<br>
+          見えるかも。
+        </h1>
+
+        <p class="sub">
+          質問に答えるだけで、今日から整う“習慣の手順”を提案。
+          <br>（始め方ガイドブック付き）
+        </p>
+
+        <div class="ctaRow">
+          <div class="cta">無料で診断をはじめる <small>3 min</small></div>
+          <div class="meta">※効果の断定なし / 習慣設計</div>
+        </div>
       </div>
 
-      <div class="main">
-        <div class="copy">
-          <div class="kicker">“枠にはまらない”腸活のはじめ方</div>
+      <!-- RIGHT -->
+      <div class="right">
+        <div class="phone" aria-hidden="true">
+          <div class="island"></div>
+          <div class="screen">
+            <div class="screenTop">
+              <div>テスト太郎</div>
+              <div class="badge"><span class="dot2"></span>TYPE</div>
+            </div>
 
-          <h1 class="headline"><span class="hl">腸活×発酵食品</span><br>最初の一歩</h1>
+            <div class="heroCard">
+              <div class="t1">YOUR LATEST TYPE</div>
+              <div class="t2">コンディションの一歩</div>
+              <div class="btn">詳細レポートを見る →</div>
+            </div>
 
-          <p class="sub">迷いを減らして、続く形に。<br>今日から動ける手順に落とし込む。</p>
-
-          <div class="benefits">
-            <div class="benefit"><span class="check"></span>最初にやることが3分でわかる</div>
-            <div class="benefit"><span class="check"></span>1週間の実践プラン付き</div>
-            <div class="benefit"><span class="check"></span>買い物で迷わないチェックリスト</div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div>
-            <div class="badge">配布中</div>
-            <p class="bookTitle">腸活スタート<br>完全ロードマップ</p>
-            <p class="bookDesc">発酵食品の選び方から、<br>続け方までまとめた1冊。</p>
-
-            <div class="mini">
-              <span class="pill">チェックリスト</span>
-              <span class="pill">1週間プラン</span>
-              <span class="pill">初心者向け</span>
+            <div class="list">
+              <div class="row"><span>HABIT ACTIVITY</span><span class="val">2 pt</span></div>
+              <div class="row"><span>CONSISTENCY</span><span class="val">1 day</span></div>
+              <div class="row"><span>FOCUS</span><span class="val">+12%</span></div>
             </div>
           </div>
-
-          <div>
-            <div class="cta">今すぐ受け取る <small>無料</small></div>
-            <div class="note">※効果を断定せず、“習慣化の手順”にフォーカス</div>
-          </div>
         </div>
       </div>
-
-      <div class="footer">
-        <div class="fine">広告 / CHOU-LOG</div>
-        <div class="qr">QR</div>
-      </div>
     </div>
+
+    <div class="fine">AD / CHOU-LOG</div>
   </div>
 </body>
 </html>
